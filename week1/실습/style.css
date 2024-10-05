@@ -1,0 +1,15 @@
+body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.content {
+  background-color: pink;
+}
+
+.list {
+  background-color: aquamarine;
+  color:blue;
+  width:50%;
+}
