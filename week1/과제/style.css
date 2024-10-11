@@ -1,0 +1,221 @@
+@font-face {
+  font-family: 'NanumB';
+  src: url('/week1/과제/font/NanumSquareRoundB.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal; 
+}
+@font-face {
+  font-family: 'NanumL';
+  src: url('/week1/과제/font/NanumSquareRoundL.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal; 
+}
+@font-face {
+  font-family: 'NanumR';
+  src: url('/week1/과제/font/NanumSquareRoundR.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal; 
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+nav{
+  display:flex;
+  flex-direction:row;
+  width:95%;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  z-index: 5;
+  color: white;
+  padding-top: 2%;
+}
+
+.nav_left{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap:20px;
+}
+
+.left_menu_Logo {
+  font-family: "NanumB";
+  font-size: 30px;
+}
+
+.left_menu{
+  font-family: "NanumR";
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  color:white;
+}
+
+.left_menu:hover {
+  transform: scale(1.1);
+}
+
+.nav_right img{
+  margin: 0px 5px;
+  width: 24px;
+  height: 24px;
+}
+
+.wave{
+  width:100%;
+  object-fit: cover;
+}
+
+.home_btn{
+  position: absolute;
+  top: 80%;
+  left: 80%;
+  color: white;
+  z-index: 10;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.home_wave{
+  background-color: white;
+  color:rgb(47, 136, 226);
+  padding:10px;
+  border-radius: 10px;
+  font-family: "NanumB";
+  font-size: 20px;
+}
+
+.linksopt{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background: rgba(46, 37, 37, 0.5);
+  font-family: "NanumL";
+  color: white;
+  padding: 5px 0px; 
+  border-radius: 10px;
+  width: 100px;
+  height: 25px;
+  text-decoration: none;
+}
+
+.linksopt:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.infinitename,
+.scrollname{
+  color: white;
+  font-family: "NanumL";
+  padding-left: 20px;
+}
+
+main{
+  width: 100%;
+  background-color: black;
+  padding-bottom: 50px;
+}
+
+.infinitebanner {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.infinite-list {
+  display: inline-block;
+  animation: scroll 15s linear infinite;
+}
+
+.infinite-list li {
+  display: inline;
+}
+
+.infinite-list img {
+  width: 210px;
+  height: 160px;
+  margin: 0 5px;
+  object-fit: cover;
+}
+
+.infinite-list img:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.scrollview {
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.scroll-list {
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth; 
+  scrollbar-width: none;
+  padding:0 40px;
+}
+
+.scroll-list li {
+  list-style: none;
+  margin-right: 10px;
+  scroll-snap-align: start;
+}
+
+.scroll-list img {
+  width: 210px;
+  height: 160px;
+  object-fit: cover;
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 35%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 24px;
+  z-index: 20;
+  height: 100px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.left {
+  left: 0;
+}
+
+.right {
+  right: 0;
+}
