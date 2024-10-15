@@ -1,0 +1,227 @@
+@font-face {
+  font-family: 'NanumB';
+  src: url('/week1/과제/font/NanumSquareRoundB.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal; 
+}
+@font-face {
+  font-family: 'NanumL';
+  src: url('/week1/과제/font/NanumSquareRoundL.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal; 
+}
+@font-face {
+  font-family: 'NanumR';
+  src: url('/week1/과제/font/NanumSquareRoundR.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal; 
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+nav{
+  display:flex;
+  flex-direction:row;
+  width:95%;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  color: white;
+  padding-top: 2%;
+}
+
+.nav_left{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap:1.25rem;
+}
+
+.left_menu_Logo {
+  font-family: "NanumB";
+  font-size: 1.88rem;
+}
+
+.left_menu{
+  font-family: "NanumR";
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  color:white;
+}
+
+.left_menu:hover {
+  transform: scale(1.1);
+}
+
+.nav_right img{
+  margin: 0 0.31rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.home{
+  position: relative;
+  width: 100%;
+}
+
+.wave{
+  width:100%;
+  object-fit: cover;
+  display: block;
+  /* 블록 요소로 바뀌게해서 인라인 요소의 불필요한 여백을 제거해주는 역할 !! */
+}
+
+.home_btn{
+  position: absolute;
+  bottom: 1rem;
+  right: 1.25rem;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.home_wave{
+  background-color: white;
+  color:rgb(47, 136, 226);
+  padding:0.63rem;
+  border-radius: 0.63rem;
+  font-family: "NanumB";
+  font-size: 1.25rem;
+  width:13.75rem;
+}
+
+.linksopt{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background: rgba(46, 37, 37, 0.5);
+  font-family: "NanumL";
+  color: white;
+  padding: 0.31rem 0; 
+  border-radius: 0.63rem;
+  width: 6.25rem;
+  height: 1.56rem;
+  text-decoration: none;
+}
+
+.linksopt:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.infinitename,
+.scrollname{
+  color: white;
+  font-family: "NanumL";
+  padding-left: 1.25rem;
+}
+
+main{
+  width: 100%;
+  background-color: black;
+  padding-bottom: 3.13rem;
+}
+
+.infinitebanner {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.infinite-list {
+  display: inline-block;
+  animation: scroll 10s linear infinite;
+  padding:0;
+}
+
+.infinite-list li {
+  display: inline;
+}
+
+.infinite-list img {
+  width: 13.13rem;
+  height: 10rem;
+  margin: 0 0.31rem;
+  object-fit: cover;
+}
+
+#lastimg {
+  margin :0;
+}
+
+.infinite-list img:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.scrollview {
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-list {
+  display: flex;
+  overflow-x: scroll;
+  /* scroll-snap-type: x mandatory; 이걸 사용하면 스냅 지점에서 
+  정지해야해서 smooth와 충돌하여 일부 상황에서 매끄럽지 않게 작동할 수 있음 !
+  주의해서 사용하기 !!! */
+  scroll-behavior: smooth; 
+  scrollbar-width: none;
+  padding: 0;
+}
+
+.scroll-list li {
+  list-style: none;
+  margin-right: 0.63rem;
+  scroll-snap-align: start;
+}
+
+.scroll-list img {
+  width: 13.13rem;
+  height: 10rem;
+  object-fit: cover;
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 35%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 0.63rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  height: 6.25rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.left {
+  left: 0;
+}
+
+.right {
+  right: 0;
+}
