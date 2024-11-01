@@ -112,12 +112,11 @@ const searchbtn = () => {
             (githubInput === '' || member.github.toLowerCase().includes(githubInput)) &&
             (genderInput === '' || member.gender === genderInput) &&
             (roleInput === '' || member.role === roleInput) &&
-            //숫자로 입력되기 때문에 자료형이 다르면 자동으로 형 변환을 시도한 후 비교하는 느슨한 비교를 사용한다고 함 !
-            (firstWeekGroupInput === '' || member.firstWeekGroup == firstWeekGroupInput) &&
-            (secondWeekGroupInput === '' || member.secondWeekGroup == secondWeekGroupInput)
+            (firstWeekGroupInput === '' || parseInt(member.firstWeekGroup) === parseInt(firstWeekGroupInput)) &&
+            (secondWeekGroupInput === '' || parseInt(member.secondWeekGroup) === parseInt(secondWeekGroupInput))
         );
     });
-
+    
     appendMembersToTable(filteredMembers);
 };
 search.addEventListener('click', searchbtn);
@@ -135,8 +134,8 @@ selectRemove.addEventListener('click', function() {
             const id = checkbox.getAttribute('data-id'); 
             // 배열에 삭제할 회원 추가하기
             idsToRemove.push(id); 
-            // 체크박스의 부모의 부모요소 ! 는 바로 체크박스를 포함하는 테이블 행
-            checkbox.parentElement.parentElement.remove();
+            // * closest()는 DOM 트리에서 가장 가까운 조상 요소를 찾음
+            checkbox.closest('tr').remove()
         }
     });
 
