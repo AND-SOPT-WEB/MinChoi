@@ -1,28 +1,43 @@
-import React, { useState } from 'react';
-import Header from '../../component/games/header'; // Header 컴포넌트 import
-import GameBoard from '../../component/games/GameBoard'; // GameBoard 컴포넌트 import
-import * as S from './styled'; // styled-components import
+import React, { useState, useEffect } from 'react';
+import * as S from "./styled";
+import Header from '../../component/games/header';
+import GameBoard from '../../component/games/gameBoard';
+import RankingBoard from '../../component/games/rankingBoard';
 
-export const Game = () => {
+function Game() {
+  const [time, setTime] = useState(0);
+  const [isTimerActive, setIsTimerActive] = useState(false);
   const [activeButton, setActiveButton] = useState("game");
-  const [time, setTime] = useState(0); // 타이머 상태
-  const [isActive, setIsActive] = useState(false); // 타이머 활성화 여부
+
+  useEffect(() => {
+    let timer;
+    if (isTimerActive) {
+      timer = setInterval(() => {
+        setTime((prevTime) => parseFloat((prevTime + 0.01).toFixed(2)));
+      }, 10);
+    }
+    return () => clearInterval(timer);
+  }, [isTimerActive]);
+
+  const startTimer = () => {
+    setIsTimerActive(true);
+  };
+
+  const stopTimer = () => {
+    setIsTimerActive(false);
+  };
 
   return (
     <S.PageContainer>
-      <Header 
-        activeButton={activeButton} 
-        setActiveButton={setActiveButton}
-        time={time} 
-      />
-      {activeButton === "game" && (
-        <GameBoard
-          setTime={setTime}
-          setIsActive={setIsActive}
-        />
+      <Header time={time} activeButton={activeButton} setActiveButton={setActiveButton} /> 
+      
+      {activeButton === "game" ? (
+        <GameBoard startTimer={startTimer} stopTimer={stopTimer} />
+      ) : (
+        <RankingBoard />
       )}
     </S.PageContainer>
   );
-};
+}
 
 export default Game;

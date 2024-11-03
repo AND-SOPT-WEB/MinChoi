@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import * as S from "./styled";
 
 function Header({ activeButton, setActiveButton, time }) {
-  const [showHeaderRight, setShowHeaderRight] = useState(true); // HeaderRight의 상태 추가
+  const [showHeaderRight, setShowHeaderRight] = useState(true);
 
   const handleButtonClick = (button) => {
     setActiveButton(button);
-    setShowHeaderRight(button === "game"); // 게임 버튼을 누르면 HeaderRight 보이기
+    setShowHeaderRight(button === "game");
   };
 
   return (
@@ -26,7 +26,7 @@ function Header({ activeButton, setActiveButton, time }) {
           랭킹
         </S.ButtonRanking>
       </S.HeaderLeft>
-      {showHeaderRight && ( // showHeaderRight가 true일 때만 HeaderRight 보이기
+      {showHeaderRight && ( 
         <S.HeaderRight>
           <S.Dropdown>
             <select>
