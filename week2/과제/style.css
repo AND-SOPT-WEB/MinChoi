@@ -15,7 +15,7 @@
 
 /* 스크롤바 떄문에 가로 화면이 잘리거나 계속 움직여서 ! */
 ::-webkit-scrollbar {
-	display: none;
+   display: none;
 }
 
 header {
