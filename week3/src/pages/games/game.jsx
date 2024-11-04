@@ -19,6 +19,12 @@ function Game() {
     return () => clearInterval(timer);
   }, [isTimerActive]);
 
+  useEffect(() => {
+    if (activeButton === "game") {
+      resetTimer();
+    }
+  }, [activeButton]);
+
   const startTimer = () => {
     setIsTimerActive(true);
   };
@@ -27,12 +33,17 @@ function Game() {
     setIsTimerActive(false);
   };
 
+  const resetTimer = () => {
+    setTime(0);
+    setIsTimerActive(false);
+  };
+
   return (
     <S.PageContainer>
-      <Header time={time} activeButton={activeButton} setActiveButton={setActiveButton} /> 
-      
+      <Header time={time} activeButton={activeButton} setActiveButton={setActiveButton} />
+
       {activeButton === "game" ? (
-        <GameBoard startTimer={startTimer} stopTimer={stopTimer} />
+        <GameBoard startTimer={startTimer} stopTimer={stopTimer} resetTimer={resetTimer} time={time} />
       ) : (
         <RankingBoard />
       )}

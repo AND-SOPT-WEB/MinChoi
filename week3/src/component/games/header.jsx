@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as S from "./styled";
 
-function Header({ activeButton, setActiveButton, time }) {
+function Header({ activeButton, setActiveButton, time, resetTimer }) {
   const [showHeaderRight, setShowHeaderRight] = useState(true);
 
   const handleButtonClick = (button) => {

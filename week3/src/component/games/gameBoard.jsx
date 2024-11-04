@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import * as S from './styled';
+import Modal from './modal';
 
-function GameBoard({ startTimer, stopTimer }) {
+function GameBoard({ startTimer, stopTimer, resetTimer }) { 
     const [cards, setCards] = useState([]);
     const [clickedNumbers, setClickedNumbers] = useState(new Set());
-    const [currentClick, setCurrentClick] = useState(1); 
+    const [currentClick, setCurrentClick] = useState(1);
     const [usedNumbers, setUsedNumbers] = useState(new Set());
+    const [isGameOver, setIsGameOver] = useState(false);
+    const [time, setTime] = useState(0);
+    const [intervalId, setIntervalId] = useState(null);
+    const [currentLevel, setCurrentLevel] = useState(1);
 
     const startCards = () => {
         const initialNumbers = Array.from({ length: 9 }, (_, i) => i + 1);
@@ -32,19 +37,21 @@ function GameBoard({ startTimer, stopTimer }) {
     const handleCardClick = (num, rowIndex, colIndex) => {
         if (num === currentClick) {
             if (currentClick === 1) {
-                startTimer(); 
+                const newIntervalId = setInterval(() => setTime(prev => prev + 0.01), 10);
+                setIntervalId(newIntervalId);
+                startTimer();
             }
 
             setClickedNumbers((prev) => new Set(prev).add(num));
-            
+
             if (num >= 10) {
-                const updatedCards = cards.map((row, rIdx) => 
+                const updatedCards = cards.map((row, rIdx) =>
                     row.map((card, cIdx) => (rIdx === rowIndex && cIdx === colIndex ? '' : card))
                 );
                 setCards(updatedCards);
             } else {
                 const randomAfterNumber = createNewCard();
-                const updatedCards = cards.map((row, rIdx) => 
+                const updatedCards = cards.map((row, rIdx) =>
                     row.map((card, cIdx) => (rIdx === rowIndex && cIdx === colIndex ? randomAfterNumber : card))
                 );
                 setCards(updatedCards);
@@ -53,19 +60,41 @@ function GameBoard({ startTimer, stopTimer }) {
             setCurrentClick(prev => prev + 1);
 
             if (currentClick === 18) {
+                clearInterval(intervalId);
                 stopTimer();
-                alert("게임 종료");
+                setIsGameOver(true);
             }
         } else {
-            alert("잘못된 클릭입니다. " + currentClick + "를 클릭하세요.");
+            alert("틀렸어요🥲\n" + currentClick + "를 클릭하세요 !");
+
         }
+    };
+
+    const closeModal = () => {
+        const currentTime = new Date().toLocaleString();
+        const existingData = JSON.parse(localStorage.getItem('gameData')) || [];
+        existingData.push({
+            currentTime,
+            level: currentLevel,
+            playTime: time.toFixed(2) 
+        });
+        localStorage.setItem('gameData', JSON.stringify(existingData));
+
+        setIsGameOver(false);
+        setTime(0);
+        setCurrentClick(1);
+        setClickedNumbers(new Set());
+        setUsedNumbers(new Set());
+        resetTimer(); 
+        startCards();
     };
 
     useEffect(() => {
         startCards();
     }, []);
-    
+
     return (
+    <S.NextNumber>다음 숫자 : {currentClick}
         <S.Board>
             {cards.map((row, rowIndex) => (
                 <S.Row key={rowIndex}>
@@ -76,7 +105,9 @@ function GameBoard({ startTimer, stopTimer }) {
                     ))}
                 </S.Row>
             ))}
+            <Modal isOpen={isGameOver} onClose={closeModal} time={time} />
         </S.Board>
+    </S.NextNumber>
     );
 }
 
