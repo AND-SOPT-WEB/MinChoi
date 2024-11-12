@@ -35,21 +35,24 @@ const SignIn = () => {
           }),
         });
         const data = await response.json();
-
+  
         if (data.result) {
-          alert(`회원가입 성공! 회원번호: ${data.result.no}`);
+          alert(`회원가입 성공❤️ 회원번호: ${data.result.no}`);
           navigate('/');
         } else if (data.code === "00") {
+          alert("회원가입 실패😢 다시 시도해주세요");
           console.log("회원가입 실패: 에러 발생");
         }
       } catch (error) {
         console.error("API 호출 실패:", error);
+        alert("회원가입 실패😢 다시 시도해주세요");
       }
     } else {
       setStep(prevStep => prevStep + 1);
       setIsButtonEnabled(false);
     }
   };
+  
 
   const buttonText = step === 3 ? "회원가입" : "다음";
 
