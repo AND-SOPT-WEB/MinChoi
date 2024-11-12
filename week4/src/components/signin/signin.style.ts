@@ -94,3 +94,10 @@ export const errorMessage = (theme: Theme ) =>  css`
   font-size: ${theme.text.content.fontSize};
   color: red;
 `;
+
+export const pwcheck =  (theme: Theme ) =>  css`
+  font-family: 'NanumL';
+  font-size: ${theme.text.content.fontSize};
+  display: flex;
+  align-items: center;
+`;

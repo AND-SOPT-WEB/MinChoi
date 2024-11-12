@@ -52,6 +52,12 @@ export const loginBtn = (theme: Theme) => css`
   }
 `;
 
+export const errorMessage = (theme: Theme ) =>  css`
+  font-family: 'NanumR';
+  font-size: ${theme.text.content.fontSize};
+  color: red;
+  margin-top: 0.5rem;
+`;
 
 export const signInBtn = (theme: Theme )=> css`
   width: 100%;

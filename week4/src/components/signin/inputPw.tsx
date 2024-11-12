@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { useState } from 'react';
-import { SigninPwWrapper, inputText, inputPw, errorMessage } from "./signin.style";
+import { SigninPwWrapper, inputText, inputPw, errorMessage, pwcheck } from "./signin.style";
 
 const InputPw = ({ onValid, onChange }: { onValid: (valid: boolean) => void, onChange: (value: string) => void }) => {
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState(""); 
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<string>("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPassword = e.target.value;
@@ -38,20 +39,28 @@ const InputPw = ({ onValid, onChange }: { onValid: (valid: boolean) => void, onC
     <div css={SigninPwWrapper}>
       <p css={inputPw}>비밀번호</p>
       <input
-        type="password"
+        type={showPassword ? "text" : "password"}
         css={inputText}
         placeholder="비밀번호를 입력해주세요"
         value={password}
         onChange={handlePasswordChange}
       />
       <input
-        type="password"
+        type={showPassword ? "text" : "password"}
         css={inputText}
         placeholder="비밀번호 확인"
         value={confirmPassword}
         onChange={handleConfirmPasswordChange}
       />
       {error && <p css={errorMessage}>{error}</p>}
+      <label css={pwcheck}>
+        <input
+          type="checkbox"
+          checked={showPassword}
+          onChange={() => setShowPassword((prev) => !prev)}
+        />
+        비밀번호 보기
+      </label>
     </div>
   );
 };

@@ -1,16 +1,22 @@
 /** @jsxImportSource @emotion/react */
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { HobbyWrapper, hobbyMain, myhobby, other, myhobbycontent, otherinput, othercontent,otherbar, hobbySearch } from "./mypage";
-
-const token = localStorage.getItem("token");
+import { HobbyWrapper, hobbyMain, myhobby, other, myhobbycontent, otherinput, othercontent, otherbar, hobbySearch } from "./mypage";
 
 const Hobby = () => {
   const [myHobby, setMyHobby] = useState<string>("");
   const [otherHobby, setOtherHobby] = useState<string>("");
   const [userNo, setUserNo] = useState<string>("");
   const [searchedNo, setSearchedNo] = useState<string>("");  
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    setToken(storedToken);
+  }, []);
+
   const getMyHobby = async () => {
+    if (!token) return;
     try {
       const response = await axios.get("http://211.188.53.75:8080/user/my-hobby", {
         headers: {
@@ -29,33 +35,33 @@ const Hobby = () => {
   };
 
   const getOtherHobby = async () => {
-    if (userNo.trim()) {
-      try {
-        const response = await axios.get(`http://211.188.53.75:8080/user/${userNo}/hobby`, {
-          headers: {
-            token: token,
-          },
-        });
+    if (!token || !userNo.trim()) return;
+    try {
+      const response = await axios.get(`http://211.188.53.75:8080/user/${userNo}/hobby`, {
+        headers: {
+          token: token,
+        },
+      });
 
-        if (response.data.result) {
-          setOtherHobby(response.data.result.hobby);
-          setSearchedNo(userNo); 
-        } else {
-          console.error("다른 사람의 취미를 불러오는 데 실패했습니다.");
-          setOtherHobby("");  
-          setSearchedNo(userNo);  
-        }
-      } catch (error) {
-        console.error("API 호출 실패:", error);
-        setOtherHobby(""); 
+      if (response.data.result) {
+        setOtherHobby(response.data.result.hobby);
+        setSearchedNo(userNo); 
+      } else {
+        alert("해당 번호의 취미가 존재하지 않습니다.");
+        setOtherHobby("");  
         setSearchedNo(userNo);  
       }
+    } catch (error) {
+      console.error("API 호출 실패:", error);
+      alert("해당 번호의 취미가 존재하지 않습니다.");
+      setOtherHobby(""); 
+      setSearchedNo(userNo);  
     }
   };
 
   useEffect(() => {
-    getMyHobby();
-  }, []);
+    if (token) getMyHobby();
+  }, [token]);
 
   const handleSearch = () => {
     getOtherHobby();
@@ -65,7 +71,7 @@ const Hobby = () => {
     <div css={HobbyWrapper}>
       <div css={hobbyMain}>취미</div>
       <div css={myhobby}>나의 취미</div>
-      <div css={myhobbycontent}>{myHobby || "오류입니다"}</div>
+      <div css={myhobbycontent}>{myHobby || "없습니다"}</div>
       
       <div css={other}>다른 사람의 취미</div>
       <div css={otherbar}>
@@ -75,10 +81,10 @@ const Hobby = () => {
           value={userNo}
           onChange={(e) => setUserNo(e.target.value)} 
         />
-        <button css={hobbySearch}onClick={handleSearch}>검색</button>
+        <button css={hobbySearch} onClick={handleSearch}>검색</button>
       </div>
       <div css={othercontent}>
-        {otherHobby ? `${searchedNo}번 사용자의 취미: ${otherHobby}` : "취미 정보 없음"}
+        {otherHobby ? `${searchedNo}번 사용자의 취미: ${otherHobby}` : ""}
       </div>
     </div>
   );

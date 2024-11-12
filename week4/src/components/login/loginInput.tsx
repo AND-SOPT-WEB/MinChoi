@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useState } from "react";
 import axios from "axios";
-import { loginInputWrapper, mainMent, idInput, pwInput, loginBtn, signInBtn } from "./loginInput.style";
+import { loginInputWrapper, mainMent, idInput, pwInput, loginBtn, signInBtn, errorMessage } from "./loginInput.style";
 import { Link, useNavigate } from "react-router-dom";
 
 const LoginInput = () => {
@@ -26,7 +26,7 @@ const LoginInput = () => {
       }
     } catch (error) {
       console.error("로그인 실패:", error);
-      setError("로그인 요청이 실패했습니다. 다시 시도해주세요.");
+      setError("아이디 또는 비밀번호가 틀렸습니다.");
     }
   };
 
@@ -46,7 +46,7 @@ const LoginInput = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      {error && <p>{error}</p>}
+      {error && <p css={errorMessage}>{error}</p>}
       <button css={loginBtn} onClick={handleLogin}>
         로그인
       </button>
